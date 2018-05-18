@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func Test_IsMsgSignedByEthAccount(t *testing.T) {
+func Test_IsChallengeSignedByEthAccount(t *testing.T) {
 	type args struct {
 		ethAccountStr string
 		msg           string
@@ -128,21 +128,21 @@ func Test_IsMsgSignedByEthAccount(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := IsMsgSignedByEthAccount(tt.args.ethAccountStr,
+			got, err := IsChallengeSignedByEthAccount(tt.args.ethAccountStr,
 				tt.args.msg, tt.args.sigStr)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("IsMsgSignedByEthAccount() error = %v, wantErr %v",
+				t.Errorf("IsChallengeSignedByEthAccount() error = %v, wantErr %v",
 					err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("IsMsgSignedByEthAccount() = %v, want %v", got, tt.want)
+				t.Errorf("IsChallengeSignedByEthAccount() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestHashEthereumMessage(t *testing.T) {
+func TestHashEthereumString(t *testing.T) {
 	tests := []struct {
 		name string
 		msg  string
@@ -157,10 +157,10 @@ func TestHashEthereumMessage(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := HashEthereumMessage(tt.msg)
+			got := HashEthereumString(tt.msg)
 			wantB, _ := hex.DecodeString(tt.want)
 			if !reflect.DeepEqual(got, wantB) {
-				t.Errorf("HashEthereumMessage() = 0x%x, want 0x%x",
+				t.Errorf("HashEthereumString() = 0x%x, want 0x%x",
 					got,
 					wantB,
 				)

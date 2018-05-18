@@ -1,0 +1,3 @@
+# goethauth [![Go Report Card](https://goreportcard.com/badge/github.com/vincentserpoul/goethauth)](https://goreportcard.com/report/github.com/vincentserpoul/goethauth) [![Coverage Status](https://coveralls.io/repos/github/vincentserpoul/goethauth/badge.svg?branch=master)](https://coveralls.io/github/vincentserpoul/goethauth?branch=master)
+
+Allows you to check if a user is the owner of an ethereum address.

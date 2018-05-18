@@ -9,11 +9,11 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// IsMsgSignedByEthAccount returns true or false according to
-// if the sig matches the msg
-func IsMsgSignedByEthAccount(
+// IsChallengeSignedByEthAccount returns true or false according to
+// if the sig matches the challenge
+func IsChallengeSignedByEthAccount(
 	ethAccountStr string,
-	msg string,
+	challenge string,
 	sigStr string,
 ) (bool, error) {
 	ethAccount := common.BytesToAddress(common.FromHex(ethAccountStr))
@@ -23,16 +23,16 @@ func IsMsgSignedByEthAccount(
 	sig = CleanSig(sig)
 
 	// Get the publicKey
-	pubkey, errPub := crypto.SigToPub(HashEthereumMessage(msg), sig)
+	pubkey, errPub := crypto.SigToPub(HashEthereumString(challenge), sig)
 	if errPub != nil {
 		if errPub != nil {
 			return false,
 				fmt.Errorf(
-					"IsMsgSignedByEthAccount: err extracting pubkey (%v)\n"+
-						"Hashed msg: 0x%x\n"+
+					"IsChallengeSignedByEthAccount: err extracting pubkey (%v)\n"+
+						"Hashed challenge: 0x%x\n"+
 						"Sig: 0x%x\n",
 					errPub,
-					HashEthereumMessage(msg),
+					HashEthereumString(challenge),
 					sig,
 				)
 		}
@@ -43,7 +43,7 @@ func IsMsgSignedByEthAccount(
 	if signedEthAccount != ethAccount {
 		return false,
 			fmt.Errorf(
-				"IsMsgSignedByEthAccount: signed by EthAccount %s "+
+				"IsChallengeSignedByEthAccount: signed by EthAccount %s "+
 					"but used to login "+
 					" for EthAccount %s",
 				signedEthAccount.String(), ethAccount.String())
@@ -53,13 +53,13 @@ func IsMsgSignedByEthAccount(
 
 }
 
-// HashEthereumMessage is how you hash messages in Ethereum
-func HashEthereumMessage(msg string) []byte {
+// HashEthereumString is how you hash messages in Ethereum
+func HashEthereumString(challenge string) []byte {
 	return crypto.Keccak256(
 		[]byte(
 			"\u0019Ethereum Signed Message:\n" +
-				strconv.Itoa(len(msg)) +
-				msg,
+				strconv.Itoa(len(challenge)) +
+				challenge,
 		),
 	)
 }
