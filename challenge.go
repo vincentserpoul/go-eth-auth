@@ -2,6 +2,7 @@ package goethauth
 
 import (
 	"crypto/rand"
+	"encoding/base64"
 	"fmt"
 )
 
@@ -13,5 +14,5 @@ func GetChallenge() (string, error) {
 			fmt.Errorf("GetChallenge: error reading random bytes: %v", err)
 	}
 
-	return string(b), nil
+	return base64.StdEncoding.EncodeToString((b)), nil
 }

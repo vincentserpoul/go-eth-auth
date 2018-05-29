@@ -12,7 +12,7 @@ func Test_GetChallenge(t *testing.T) {
 	}{
 		{
 			name:    "Normal challenge",
-			wantLen: 64,
+			wantLen: 88,
 		},
 	}
 
@@ -22,7 +22,7 @@ func Test_GetChallenge(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("got unexpected error: %v", err)
 			}
-			if len(got) != 64 {
+			if len(got) != 88 {
 				t.Errorf("got unexpected challenge length: %d", len(got))
 			}
 		})
